@@ -1,4 +1,4 @@
-const commentsSection = null;
+let commentsSection = null;
 const bannedContext = ["word1", "word2", "word3"];
 const scanner = regex(bannedContext);
 
@@ -8,9 +8,15 @@ const observer = new MutationObserver(check);
 
 document.addEventListener("yt-navigate-finish", () => {
   observer.disconnect();
-  commentsSection = document.querySelector("ytd-comments #contents");
-  if (!commentsSection) return;
-  observer.observe(commentsSection, obconfig);
+  if (!location.pathname.includes("/watch")) return;
+
+  const getCommentsSection = setInterval(() => {
+    commentsSection = document.querySelector("ytd-comments #contents");
+    if (commentsSection) {
+      clearInterval(getCommentsSection);
+      observer.observe(commentsSection, obconfig);
+    }
+  }, 500);
 });
 
 // Core function to scan and filter comments
