@@ -1,11 +1,30 @@
 <!doctype html>
-<html lang="en">
+<html>
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="popup.js" defer></script>
   </head>
   <body>
-    <h1>Hello, World! again</h1>
+    <h1>Youtube Comment Filtter</h1>
+    <main class="container">
+      <div class="blocklist">
+        <h4 class="secondry-title">Block List</h4>
+        <div id="words-list" class="tags-container"></div>
+  
+        <form class="input-section" id="add-to-blocklist">
+          <input type="text" id="word-input" placeholder="Type a Text..." />
+          <button id="add-btn">Add Text</button>
+        </form>
+      </div>
+
+      <div class="lsection">
+        <h4 class="secondry-title">Block Log</h4>
+        <div id="comments-log" class="scrollable-log"></div>
+      </main>
+      <footer>
+        <a href="https://github.com/al-jbri">Github</a>
+        <a href="https://github.com/al-jbri">Youtube</a>
+      </footer>
   </body>
 </html>
