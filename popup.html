@@ -3,34 +3,93 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ytcf PopUp</title>
+    <title>Comment Filtter</title>
     <link rel="stylesheet" href="style.css" />
     <script src="popup.js" defer></script>
   </head>
   <body>
-    <h1>Youtube Comment Filtter</h1>
     <main class="container">
-      <div class="nes">
-        <h4 class="secondary-title">Block List</h4>
-        <div id="words-list" class="scrollable-container">
-          <span class="tag">you are donkey <span class="delete" id="delete">X</span></span>
-          <span class="tag">تجربة كتابة نص<span class="delete" id="delete">X</span></span>
-          <span class="tag">Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero cumque, impedit fugiat magni ratione placeat repellat nulla molestias aut fugit nesciunt doloremque dicta provident sed esse, accusantium architecto, enim facilis. <span class="delete" id="delete">X</span></span>
+      <h4 class="secondary-title">Block List</h4>
+      <div id="words-list" class="scrollable-container">
+        <div class="tag" title="text">
+          <span class="tag-text" dir="auto">text</span>
+          <span class="delete" id="delete">X</span>
         </div>
-  
-        <form class="input-section" id="add-to-blocklist">
-          <input type="text" id="word-input" placeholder="Type a Text..." />
-          <button id="add-btn">+</button>
-        </form>
+
+        <div class="tag" title="text">
+          <span class="tag-text" dir="auto">text</span>
+          <span class="delete" id="delete">X</span>
+        </div>
+
+        <div class="tag" title="text">
+          <span class="tag-text" dir="auto">text</span>
+          <span class="delete" id="delete">X</span>
+        </div>
+
+        <div class="tag" title="text">
+          <span class="tag-text" dir="auto">نص عربي</span>
+          <span class="delete" id="delete">X</span>
+        </div>
       </div>
 
-      <div class="lsection">
-        <h4 class="secondary-title">Block Log</h4>
-        <div id="comments-log" class="scrollable-container"></div>
-      </main>
+      <form class="input-section" id="add-to-blocklist" dir="auto">
+        <input
+          type="text"
+          id="word-input"
+          placeholder="Type a Text..."
+          dir="auto"
+        />
+        <button id="add-btn">+</button>
+      </form>
+
+      <h4 class="secondary-title">Block Log</h4>
+      <div id="comments-log" class="scrollable-container comments-log">
+        <div class="comment">
+          <p class="user" dir="auto">@user</p>
+          <p class="comment-text" dir="auto">first comment</p>
+        </div>
+
+        <div class="comment">
+          <p class="user" dir="auto">@اسم مستخدم عربي</p>
+          <p class="comment-text" dir="auto">أول تعليق</p>
+        </div>
+        <div class="comment">
+          <p class="user" dir="auto">@user</p>
+          <p class="comment-text" dir="auto">first comment</p>
+        </div>
+
+        <div class="comment">
+          <p class="user" dir="auto">@اسم مستخدم عربي</p>
+          <p class="comment-text" dir="auto">أول تعليق</p>
+        </div>
+        <div class="comment">
+          <p class="user" dir="auto">@user</p>
+          <p class="comment-text" dir="auto">first comment</p>
+        </div>
+
+        <div class="comment">
+          <p class="user" dir="auto">@اسم مستخدم عربي</p>
+          <p class="comment-text" dir="auto">أول تعليق</p>
+        </div>
+        <div class="comment">
+          <p class="user" dir="auto">@user</p>
+          <p class="comment-text" dir="auto">first comment</p>
+        </div>
+
+        <div class="comment">
+          <p class="user" dir="auto">@اسم مستخدم عربي</p>
+          <p class="comment-text" dir="auto">أول تعليق</p>
+        </div>
+      </div>
+
       <footer>
-        <a href="https://github.com/al-jbri">Github</a>
-        <a href="https://github.com/al-jbri">Youtube</a>
+        <a href="https://github.com/al-jbri">
+          <img src="images/github.svg" alt="GitHub Profile" />
+        </a>
+        <a href="https://www.youtube.com/@al-jbri">
+          <img src="images/youtube.svg" alt="YouTube Channel" />
+        </a>
       </footer>
+    </main>
   </body>
 </html>

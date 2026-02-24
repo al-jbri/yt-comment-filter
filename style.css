@@ -1,48 +1,66 @@
+/* ========================================= 
+    VARIABLES 
+    ========================================= */
+:root {
+  --bg-main: #1f1f1f;
+  --bg-secondary: #303030;
+  --bg-hover: #282828;
+  --text-main: #ededed;
+  --border-color: #3f3f3f;
+  --accent-color: #002aff;
+  --danger-color: #ff0000;
+  --radius: 6px;
+  --transition-speed: 0.15s;
+}
+
+/* ========================================= 
+    BASE STYLES 
+    ========================================= */
 body {
-  background-color: #141414;
-  color: #ffffff;
+  background-color: var(--bg-main);
+  color: var(--text-main);
   font-family: sans-serif;
   font-size: 1.1rem;
-}
-input,
-button {
-  background-color: #212121;
-  color: #ffffff;
-  border-radius: 6px;
-  border: #3f3f3f solid 2px;
-  outline: none;
-}
-input {
-  padding: 5px;
-  transition: all 0.15s ease-in-out;
+  padding: 16px;
+  width: 360px;
+  box-sizing: border-box;
 }
 
-input:focus {
-  border: #002aff solid 2px;
+/* ========================================= 
+    TYPOGRAPHY 
+    ========================================= */
+.secondary-title {
+  font-size: 0.9rem;
+  color: #b3b3b3;
+  margin: 0 0 8px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
-
-button {
-  font-size: 1.3rem;
-  padding: 0px 7px;
-}
-
-button:hover {
-  background-color: #141414;
-  cursor: pointer;
-}
-
-.secondry-title {
-  margin: 0;
-}
-
+/* ========================================= 
+    LAYOUT & CONTAINERS 
+    ========================================= */
 .scrollable-container {
   height: 150px;
-  width: 500px;
+  width: 100%;
   overflow-y: auto;
-  border-radius: 6px;
+  border-radius: var(--radius);
   padding: 2px;
-  background-color: #222222;
-  margin: 5px;
+  border: 1px solid var(--border-color);
+  margin: 5px 0px;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  gap: 8px;
+}
+
+/* ========================================= 
+    FORMS & INPUTS 
+    ========================================= */
+.input-section {
+  margin: 0px 0px 16px 0px;
+  padding: 2px;
+  width: 100%;
+  display: flex;
 }
 
 form {
@@ -52,25 +70,134 @@ form {
   gap: 5px;
 }
 
-.tag {
-  background-color: #414141;
-  border-radius: 6px;
-  font-size: 0.7rem;
+input,
+button {
+  background-color: var(--bg-secondary);
+  color: var(--text-main);
+  border-radius: var(--radius);
+  border: 2px solid var(--border-color);
+  outline: none;
+}
+
+input {
   padding: 5px;
+  transition: border-color var(--transition-speed) ease-in-out;
+  width: 100%;
+  flex-grow: 1;
+}
+
+input:focus {
+  border-color: var(--accent-color);
+}
+
+button {
+  font-size: 1.3rem;
+  padding: 0px 7px;
+  cursor: pointer;
+  transition: all var(--transition-speed) ease-in-out;
+  background-color: var(--accent-color);
+  border-color: var(--accent-color);
+}
+
+button:hover {
+  background-color: #0021c9;
+  border-color: #0021c9;
+}
+
+/* ========================================= 
+    COMPONENTS: TAGS 
+    ========================================= */
+.tag {
+  background-color: var(--bg-secondary);
+  border-radius: var(--radius);
+  font-size: 0.7rem;
+  padding: 6px 10px;
   display: inline-flex;
   align-items: center;
   gap: 7px;
-  white-space: normal;
-  overflow-wrap: break-word;
-  word-wrap: break-word;
+  max-width: 100%;
+  transition: background-color var(--transition-speed) ease-in-out;
+}
+
+.tag:hover {
+  background-color: var(--bg-hover);
+}
+
+.tag-text {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  min-width: 0;
+  flex-grow: 1;
 }
 
 .delete {
-  color: #ffffff;
-  transition: all 0.15s ease-in-out;
+  color: var(--text-main);
+  transition: color var(--transition-speed) ease-in-out;
   cursor: pointer;
 }
 
 .delete:hover {
-  color: #ff0000;
+  color: var(--danger-color);
+}
+
+/* ========================================= 
+    COMMENTS LOG 
+    ========================================= */
+
+.comments-log {
+  flex-direction: column;
+  flex-wrap: nowrap;
+  padding: 6px;
+}
+
+.comment {
+  background-color: var(--bg-secondary);
+  border-radius: var(--radius);
+  padding: 6px 10px;
+  transition: background-color var(--transition-speed) ease-in-out;
+  display: flex;
+  flex-direction: column;
+}
+.comment:hover {
+  background-color: var(--bg-hover);
+}
+.comment .user {
+  font-weight: bold;
+  color: #b0b0b0;
+  font-size: 0.8rem;
+  margin: 0px;
+  line-height: 1.4;
+}
+
+.comment-text {
+  font-size: 0.9rem;
+  margin: 0px 5px 0px 5px;
+  line-height: 1.5;
+}
+
+/* ========================================= 
+    FOOTER 
+    ========================================= */
+footer {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  padding: 10px;
+}
+
+footer a {
+  display: inline-flex;
+  text-decoration: none;
+}
+
+footer img {
+  width: 35px;
+  height: 35px;
+  display: block;
+  transition: transform var(--transition-speed) ease-in-out;
+}
+
+footer img:hover {
+  transform: scale(1.2);
 }
