@@ -1,26 +1,19 @@
+// Global State
 let commentsSection = null;
-const bannedContext = ["word1", "word2", "word3"];
-const scanner = regex(bannedContext);
+let bannedContext = [];
+let scanner = null;
 
-// --- Observer Configuration ---
-const obconfig = { attributes: false, childList: true, subtree: true };
-const observer = new MutationObserver(check);
+// Initial Data Fetch
+getBlockList();
 
-document.addEventListener("yt-navigate-finish", () => {
-  observer.disconnect();
-  if (!location.pathname.includes("/watch")) return;
-
-  const getCommentsSection = setInterval(() => {
-    commentsSection = document.querySelector("ytd-comments #contents");
-    if (commentsSection) {
-      clearInterval(getCommentsSection);
-      observer.observe(commentsSection, obconfig);
-    }
-  }, 500);
-});
+// add some listeners
+chrome.storage.sync.onChanged.addListener(getBlockList);
+document.addEventListener("yt-navigate-finish", startObserver);
 
 // Core function to scan and filter comments
 function check() {
+  if (!scanner) return;
+
   const comments = commentsSection.querySelectorAll(
     "ytd-comment-thread-renderer",
   );
@@ -40,6 +33,38 @@ function check() {
 
     if (commentText && scanner.test(commentText.textContent)) {
       comment.style.display = "none";
+    }
+  });
+}
+
+// Observer configuration
+const obconfig = { attributes: false, childList: true, subtree: true };
+const observer = new MutationObserver(check);
+
+// Setup and start the MutationObserver
+function startObserver() {
+  observer.disconnect();
+
+  if (!location.pathname.includes("/watch")) return;
+
+  const getCommentsSection = setInterval(() => {
+    commentsSection = document.querySelector("ytd-comments #contents");
+    if (commentsSection) {
+      clearInterval(getCommentsSection);
+      observer.observe(commentsSection, obconfig);
+    }
+  }, 500);
+}
+
+// Fetch blocklist from storage and update the scanner
+function getBlockList() {
+  chrome.storage.sync.get(["bannedContext"], (result) => {
+    bannedContext = result.bannedContext || [];
+
+    if (bannedContext.length === 0) {
+      scanner = null;
+    } else {
+      scanner = regex(bannedContext);
     }
   });
 }
