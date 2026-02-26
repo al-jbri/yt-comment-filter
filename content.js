@@ -31,6 +31,7 @@ function check(force = false) {
       "#pinned-comment-badge ytd-pinned-comment-badge-renderer",
     );
     const commentText = comment.querySelector("#content-text span");
+    const commentUser = comment.querySelector("#author-text span");
 
     if (isPinned) {
       return;
@@ -38,6 +39,7 @@ function check(force = false) {
 
     if (commentText && scanner.test(commentText.textContent)) {
       comment.style.display = "none";
+      updateLog(commentText.textContent, commentUser.textContent);
     } else {
       comment.style.display = "";
     }
@@ -88,6 +90,21 @@ function startObserver() {
   observer.disconnect();
   if (!commentsSection) return;
   observer.observe(commentsSection, obconfig);
+}
+// save the comment object to the log in local
+function updateLog(text, user) {
+  chrome.storage.local.get([commentsLog], (result) => {
+    let log = result.commentsLog || [];
+
+    log.push({ commentText: text, commentUser: user, timestamp: Date.now() });
+
+    // Enforce maximum limit of 30 items
+    if (log.length > 30) {
+      log.shift();
+    }
+
+    chrome.storage.local.set({ commentsLog: log });
+  });
 }
 
 // Regular Expression Generator
