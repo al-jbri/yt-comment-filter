@@ -13,7 +13,11 @@ chrome.storage.local.onChanged.addListener((changes) => {
   }
 });
 
-document.addEventListener("yt-navigate-finish", getCommentSection);
+document.addEventListener("yt-navigate-finish", () => {
+  observer.disconnect();
+  commentsSection = null;
+  getCommentSection();
+});
 
 // Core Filtering Function
 function check(force = false) {
@@ -60,6 +64,17 @@ function getBlockList() {
   });
 }
 
+// MutationObserver Configuration
+const obconfig = { attributes: false, childList: true, subtree: true };
+const observer = new MutationObserver(() => {
+  check(false);
+});
+
+// Observer Initialization
+function startObserver() {
+  observer.observe(commentsSection, obconfig);
+}
+
 // DOM Element Fetching
 function getCommentSection() {
   if (!location.pathname.includes("/watch")) return;
@@ -79,22 +94,9 @@ function getCommentSection() {
   }, 500);
 }
 
-// MutationObserver Configuration
-const obconfig = { attributes: false, childList: true, subtree: true };
-const observer = new MutationObserver(() => {
-  check(false);
-});
-
-// Observer Initialization
-function startObserver() {
-  observer.disconnect();
-  if (!commentsSection) return;
-  observer.observe(commentsSection, obconfig);
-}
-
 // save the comment object to the log in local
 function updateLog(text, user) {
-  chrome.storage.local.get([commentsLog], (result) => {
+  chrome.storage.local.get(["commentsLog"], (result) => {
     let log = result.commentsLog || [];
 
     log.push({ commentText: text, commentUser: user, timestamp: Date.now() });
