@@ -209,6 +209,7 @@ footer {
   color: var(--text-main);
   text-decoration: none;
   padding: 0px 7px;
+  transition: background-color var(--transition-speed) ease-in-out;
 }
 
 .github-btn:hover {
