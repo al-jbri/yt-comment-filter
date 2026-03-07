@@ -1,6 +1,5 @@
 // Global State Variables
 let commentsSection = null;
-let bannedContext = [];
 let scanner = null;
 
 // Initialization
@@ -57,12 +56,12 @@ function check(force = false) {
 // Data Fetching and Scanner Update
 function getBlockList() {
   chrome.storage.local.get(["bannedContext"], (result) => {
-    const bannedContext = result.bannedContext || [];
+    const list = result.bannedContext || [];
 
-    if (bannedContext.length === 0) {
+    if (list.length === 0) {
       scanner = null;
     } else {
-      scanner = regex(bannedContext);
+      scanner = regex(list);
       check(true);
     }
 
@@ -107,7 +106,7 @@ function updateLog(text, user) {
   chrome.storage.local.get(["commentsLog"], (result) => {
     let list = result.commentsLog || [];
 
-    list.push({ commentText: text, commentUser: user, id: Date.now() });
+    list.unshift({ commentText: text, commentUser: user });
 
     // Enforce maximum limit of 30 items
     if (list.length > 30) {
@@ -119,7 +118,7 @@ function updateLog(text, user) {
   });
 }
 
-// Regex Generator | bulit with AI
+// Regex Generetor | bulit with AI
 function regex(bannedItems) {
   return new RegExp(
     bannedItems
