@@ -96,7 +96,7 @@ function addToBlockList(text) {
 function removeFromBlockList(tag) {
   chrome.storage.local.get(["bannedContext"], (result) => {
     let list = result.bannedContext.filter((i) => {
-      i.textcontent !== tag.textContent;
+      i !== tag.textContent;
     });
 
     chrome.storage.local.set({ bannedContext: list }, () => getAndRenderTags());
