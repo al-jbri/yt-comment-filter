@@ -27,7 +27,9 @@ addForm.addEventListener("submit", (e) => {
 // Handle tag deletion
 tagsContainer.addEventListener("click", (e) => {
   if (e.target.classList.contains("delete")) {
-    removeFromBlockList(e.target.closest(".tag"));
+    removeFromBlockList(
+      e.target.closest(".tag").querySelector(".tag-text").textContent,
+    );
   }
 });
 
@@ -102,10 +104,10 @@ function addToBlockList(text) {
 }
 
 // Remove a word from banned list
-function removeFromBlockList(tag) {
+function removeFromBlockList(tagText) {
   chrome.storage.local.get(["bannedContext"], (result) => {
     let list = result.bannedContext.filter((i) => {
-      return i !== tag.textContent;
+      return i !== tagText;
     });
 
     chrome.storage.local.set({ bannedContext: list }, () => getAndRenderTags());
