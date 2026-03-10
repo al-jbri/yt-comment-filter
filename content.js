@@ -89,7 +89,7 @@ function getCommentSection() {
 
   const getCommentsSection = setInterval(() => {
     maxAttempts--;
-    commentsSection = document.querySelector("ytd-comments #contents");
+    commentsSection = document.querySelector("ytd-comments");
 
     if (commentsSection) {
       clearInterval(getCommentsSection);
