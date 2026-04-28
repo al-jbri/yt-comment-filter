@@ -125,8 +125,8 @@ function updateLog(newComments) {
 
 function getTextWIthEmoji(rawComment) {
   let finalText = "";
-  rawComment.childNodes.forEach((elemnt) => {
-    if (elemnt.nodeType === 3) {
+  rawComment.childNodes.forEach((element) => {
+    if (element.nodeType === 3) {
       finalText += elemnt.nodeValue;
     } else if (elemnt.nodeName === "SPAN") {
       let spanImg = elemnt.querySelector("img");
